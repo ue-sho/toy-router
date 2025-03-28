@@ -129,7 +129,6 @@ int Router::Initialize() {
     }
 
     // Print interface information
-    char buf[80];
     DebugPrintf("[0] %s: %s\n", config.receiving_interface.c_str(),
                 NetworkUtil::EtherToString(interface_info[0].hw_addr).c_str());
     DebugPrintf("[0] %s: %s\n", config.receiving_interface.c_str(),
@@ -224,7 +223,7 @@ int Router::AnalyzePacket(int device_number, u_char* data, int size) {
     int tmp_len = size;
 
     // Ethernet header
-    if (tmp_len < sizeof(struct ether_header)) {
+    if (tmp_len < static_cast<int>(sizeof(struct ether_header))) {
         DebugPrintf("[%d]:tmp_len(%d) < sizeof(struct ether_header)\n", device_number, tmp_len);
         return -1;
     }
@@ -241,7 +240,7 @@ int Router::AnalyzePacket(int device_number, u_char* data, int size) {
 
     // ARP header
     if (ntohs(eth_hdr->ether_type) == ETHERTYPE_ARP) {
-        if (tmp_len < sizeof(struct ether_arp)) {
+        if (tmp_len < static_cast<int>(sizeof(struct ether_arp))) {
             DebugPrintf("[%d]:tmp_len(%d) < sizeof(struct ether_arp)\n", device_number, tmp_len);
             return -1;
         }
@@ -260,7 +259,7 @@ int Router::AnalyzePacket(int device_number, u_char* data, int size) {
     }
     // IP header
     else if (ntohs(eth_hdr->ether_type) == ETHERTYPE_IP) {
-        if (tmp_len < sizeof(struct iphdr)) {
+        if (tmp_len < static_cast<int>(sizeof(struct iphdr))) {
             DebugPrintf("[%d]:tmp_len(%d) < sizeof(struct iphdr)\n", device_number, tmp_len);
             return -1;
         }

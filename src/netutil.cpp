@@ -195,7 +195,7 @@ int NetworkUtil::InitRawSocket(const std::string& device, int promiscFlag, int i
  * @return Checksum value
  */
 u_int16_t NetworkUtil::Checksum(unsigned char* data, int len) {
-    register u_int32_t sum = 0;
+    u_int32_t sum = 0;
 
     for (int i = 0; i < len; i += 2) {
         if (i + 1 < len) {
@@ -220,7 +220,7 @@ u_int16_t NetworkUtil::Checksum(unsigned char* data, int len) {
  * @return Checksum value
  */
 u_int16_t NetworkUtil::Checksum2(unsigned char* data1, int len1, unsigned char* data2, int len2) {
-    register u_int32_t sum = 0;
+    u_int32_t sum = 0;
 
     for (int i = 0; i < len1; i += 2) {
         if (i + 1 < len1) {
@@ -283,6 +283,8 @@ int NetworkUtil::CheckIPChecksum(struct iphdr* iphdr, unsigned char* option, int
  */
 int NetworkUtil::SendArpRequest(int soc, in_addr_t target_ip, unsigned char target_mac[6],
                                in_addr_t my_ip, unsigned char my_mac[6]) {
+    (void)target_mac;  // Suppress unused parameter warning
+
     struct ether_header eh;
     struct ether_arp arp;
     u_char buf[sizeof(struct ether_header) + sizeof(struct ether_arp)];

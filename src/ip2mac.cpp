@@ -108,6 +108,8 @@ IP2MAC* IP2MACManager::GetIp2Mac(int deviceNo, in_addr_t addr, unsigned char* hw
  * @return Success or failure code
  */
 int IP2MACManager::BufferSendOne(int deviceNo, IP2MAC* ip2mac) {
+    (void)deviceNo;  // Suppress unused parameter warning
+
     if (ip2mac == nullptr) {
         return -1;
     }

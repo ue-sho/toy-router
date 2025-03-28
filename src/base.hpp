@@ -55,6 +55,10 @@ public:
     unsigned long in_bucket_size;   // Total data size
 
     SendData();
+    SendData(const SendData& other);
+    SendData& operator=(const SendData& other);
+    SendData(SendData&& other) noexcept;
+    SendData& operator=(SendData&& other) noexcept;
     ~SendData();
 
 private:
@@ -74,6 +78,10 @@ public:
     SendData send_data;          // Send data
 
     IP2MAC();
+    IP2MAC(const IP2MAC& other);
+    IP2MAC& operator=(const IP2MAC& other);
+    IP2MAC(IP2MAC&& other) noexcept;
+    IP2MAC& operator=(IP2MAC&& other) noexcept;
     ~IP2MAC();
 };
 
